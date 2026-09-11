@@ -1,0 +1,45 @@
+**Triangle Classification – Test Results**
+**Initial Test Run:**
+
+Command:
+python -m unittest test_classify_triangle.py
+
+Result:
+FAIL: test_right_triangle (test_classify_triangle.TestTriangles.test_right_triangle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Stevens\SSW-567\SSW-567-QA\triangle-classification\test_classify_triangle.py", line 12, in test_right_triangle
+    self.assertEqual(classify_triangle(3, 4, 5), "Right Triangle")
+AssertionError: 'Scalene' != 'Right Triangle'
+- Scalene
++ Right Triangle
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (failures=1)
+PS C:\Stevens\SSW-567\SSW-567-QA\triangle-classification> 
+
+Actual:
+Scalene
+
+Reason:
+The program classified the 3, 4, 5 triangle as Scalene before checking whether it was a Right Triangle.
+
+
+
+**Bug fix for previous Right Traingle and Scalene:**
+
+PS C:\Stevens\SSW-567\SSW-567-QA\triangle-classification> python -m unittest test_classify_triangle.py
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK
+PS C:\Stevens\SSW-567\SSW-567-QA\triangle-classification> 
+
+The final test run passed all test cases successfully.
+The tests covered equilateral, isosceles, scalene, and right triangle classifications.
+
+
