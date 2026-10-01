@@ -1,0 +1,8 @@
+language: python
+
+python:
+  - "3.10"
+
+script:
+  - cd GitHubApi567-hw03a
+  - python -m unittest test_GitHubApi.py
