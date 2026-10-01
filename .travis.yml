@@ -3,6 +3,9 @@ language: python
 python:
   - "3.10"
 
+install:
+  - pip install -r GitHubApi567-hw03a/requirements.txt
+
 script:
   - cd GitHubApi567-hw03a
   - python -m unittest test_GitHubApi.py
