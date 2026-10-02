@@ -1,23 +1,32 @@
 import unittest
-
+from unittest import mock
 from GitHubApi import getRepos, getCommits, getRepoInfo
 
 class TestGitHubApi(unittest.TestCase):
     def setUp(self):
         self.user = "richkempinski"
         self.repo = "hellogitworld"
-    def testGetRepos(self):
+
+    @mock.patch('requests.get')
+    def testGetRepos(self, mockedReq):
+        mockedReq.return_value.text = '[{"name":"hellogitworld"}]'
         repos = getRepos(self.user)
         self.assertIn(self.repo, repos)
-    def testGetNumberOfCommits(self):
+
+    @mock.patch('requests.get')
+    def testGetNumberOfCommits(self, mockedReq):
+        mockedReq.return_value.text = '[{"sha":1},{"sha":2},{"sha":3},{"sha":4},{"sha":5},{"sha":6},{"sha":7},{"sha":8}]'
         commits = getCommits(self.user, self.repo)
-        self.assertTrue(len(commits) > 0)
-    def testGetRepoInfo(self):
+        self.assertEqual(len(commits), 8)
+        
+    @mock.patch('requests.get')
+    def testGetRepoInfo(self, mockedReq):
+        mockedReq.side_effect = [
+            mock.Mock(text='[{"name":"hellogitworld"}]'),
+            mock.Mock(text='[{"sha":1},{"sha":2},{"sha":3}]')
+        ]
         result = getRepoInfo(self.user)
-        repo_names = []
-        for repo, commits in result:
-            repo_names.append(repo)
-        self.assertIn(self.repo, repo_names)
+        self.assertEqual(result, [("hellogitworld", 3)])
 
 if __name__ == '__main__':
     unittest.main()
